@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 
+import java.time.LocalDateTime;
+
 @SpringBootApplication
 public class KafkaApplication {
 
@@ -14,9 +16,9 @@ public class KafkaApplication {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(KafkaTemplate<String, String> kafkaTemplate){
+    CommandLineRunner commandLineRunner(KafkaTemplate<String, CustomMessage> kafkaTemplate){
         return args -> {
-          kafkaTemplate.send("vaspap", "Hello Kafka!");
+          kafkaTemplate.send("vaspap", new CustomMessage("Hello Custom Object", LocalDateTime.now()));
         };
     }
 }
